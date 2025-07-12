@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#FFF8F0">
+
+    <!-- Header dengan tombol back -->
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="56dp"
+        android:background="#6BC2B2"
+        android:padding="12dp">
+
+        <ImageView
+            android:id="@+id/btnBack"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:layout_alignParentStart="true"
+            android:src="@drawable/baseline_arrow_circle_left_24"
+            android:contentDescription="Kembali"
+            android:tint="@android:color/white" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_centerInParent="true"
+            android:text="Tambah Resep"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            android:textColor="#FFFFFF"
+            android:gravity="center" />
+    </RelativeLayout>
+
+    <!-- Isi Form (scrollable) -->
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:padding="24dp">
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <!-- Gambar resep -->
+            <ImageView
+                android:id="@+id/imgPreview"
+                android:layout_width="match_parent"
+                android:layout_height="200dp"
+                android:scaleType="centerCrop"
+                android:src="@drawable/ic_placeholder"
+                android:background="#E0E0E0"
+                android:layout_marginBottom="16dp" />
+
+            <!-- Input judul -->
+            <EditText
+                android:id="@+id/etTitle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Nama Resep"
+                android:backgroundTint="#6BC2B2"
+                android:padding="12dp"
+                android:layout_marginBottom="16dp" />
+
+            <!-- Deskripsi singkat -->
+            <EditText
+                android:id="@+id/etDescription"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Deskripsi Singkat"
+                android:minLines="3"
+                android:backgroundTint="#6BC2B2"
+                android:padding="12dp"
+                android:layout_marginBottom="16dp" />
+
+            <!-- Alat dan Bahan -->
+            <EditText
+                android:id="@+id/etIngredients"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Alat dan Bahan"
+                android:minLines="4"
+                android:backgroundTint="#6BC2B2"
+                android:padding="12dp"
+                android:layout_marginBottom="16dp" />
+
+            <!-- Langkah-langkah -->
+            <EditText
+                android:id="@+id/etSteps"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Langkah-langkah"
+                android:minLines="5"
+                android:backgroundTint="#6BC2B2"
+                android:padding="12dp"
+                android:layout_marginBottom="32dp" />
+
+            <!-- Tombol simpan -->
+            <Button
+                android:id="@+id/btnSave"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Simpan Resep"
+                android:layout_marginTop="32dp"
+                android:backgroundTint="#6BC2B2"
+                android:textColor="#fff" />
+        </LinearLayout>
+    </ScrollView>
+</LinearLayout>

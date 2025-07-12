@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#FFF8F0">
+
+    <!-- Header dengan tombol kembali -->
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="56dp"
+        android:background="#6BC2B2"
+        android:padding="12dp">
+
+        <ImageView
+            android:id="@+id/btnBack"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:layout_alignParentStart="true"
+            android:src="@drawable/baseline_arrow_circle_left_24"
+            android:contentDescription="Kembali"
+            android:tint="@android:color/white"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_centerInParent="true"
+            android:text="Edit Resep"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            android:textColor="#FFFFFF"
+            android:gravity="center" />
+    </RelativeLayout>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:padding="24dp">
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <!-- Gambar resep -->
+            <ImageView
+                android:id="@+id/imageView"
+                android:layout_width="match_parent"
+                android:layout_height="200dp"
+                android:scaleType="centerCrop"
+                android:src="@drawable/ic_placeholder"
+                android:background="#E0E0E0"
+                android:layout_marginBottom="16dp" />
+
+            <!-- Edit Judul Resep -->
+            <EditText
+                android:id="@+id/editTitle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Edit Judul Resep"
+                android:backgroundTint="#6BC2B2"
+                android:padding="12dp"
+                android:layout_marginBottom="16dp" />
+
+            <!-- Edit Deskripsi -->
+            <EditText
+                android:id="@+id/editDescription"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Edit Deskripsi"
+                android:minLines="3"
+                android:backgroundTint="#6BC2B2"
+                android:padding="12dp"
+                android:layout_marginBottom="16dp" />
+
+            <!-- Edit Alat dan Bahan -->
+            <EditText
+                android:id="@+id/editIngredients"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Edit Alat dan Bahan"
+                android:minLines="4"
+                android:backgroundTint="#6BC2B2"
+                android:padding="12dp"
+                android:layout_marginBottom="16dp" />
+
+            <!-- Edit Langkah-langkah -->
+            <EditText
+                android:id="@+id/editSteps"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Edit Langkah-langkah"
+                android:minLines="5"
+                android:backgroundTint="#6BC2B2"
+                android:padding="12dp"
+                android:layout_marginBottom="32dp" />
+
+            <!-- Tombol Simpan -->
+            <Button
+                android:id="@+id/btnSave"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Simpan Perubahan"
+                android:backgroundTint="#6BC2B2"
+                android:textColor="#fff" />
+        </LinearLayout>
+    </ScrollView>
+</LinearLayout>
