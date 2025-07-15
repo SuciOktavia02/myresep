@@ -1,0 +1,6 @@
+<resources>
+    <style name="PopupMenuCustomStyle" parent="Widget.AppCompat.PopupMenu">
+        <item name="android:popupBackground">@drawable/bg_popup_menu</item>
+        <item name="android:popupElevation">8dp</item>
+    </style>
+</resources>

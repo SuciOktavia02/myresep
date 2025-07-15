@@ -2,41 +2,33 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.myresep">
 
-    <!-- Izin akses untuk membaca media (dibutuhkan untuk upload gambar dari galeri) -->
-    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <!-- Izin akses media untuk Android 13+ -->
     <uses-permission android:name="android.permission.READ_MEDIA_IMAGES" />
-    <uses-permission android:name="android.permission.READ_MEDIA_VISUAL_USER_SELECTED" />
+
+    <!-- Untuk kompatibilitas Android 12 dan lebih lama -->
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"
+        android:maxSdkVersion="32" />
+
+       <uses-permission android:name="android.permission.READ_MEDIA_VISUAL_USER_SELECTED" />
 
     <application
         android:allowBackup="true"
-        android:label="MyResep"
-        android:icon="@drawable/logo_myresep"
-        android:roundIcon="@drawable/logo_myresep"
+        android:label="My Recipes"
+        android:icon="@drawable/logo"
+        android:roundIcon="@drawable/logo"
         android:supportsRtl="true"
         android:theme="@style/Theme.Myresep">
 
-        <!-- Splash screen sebagai launcher -->
-        <activity
-            android:name=".SplashActivity"
-            android:exported="true">
+        <activity android:name=".SplashActivity" android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
 
-        <!-- Main Activity -->
         <activity android:name=".MainActivity" android:exported="true" />
-
-        <!-- Tambah Resep -->
         <activity android:name=".AddRecipeActivity" android:exported="true" />
-
-        <!-- Detail Resep -->
         <activity android:name=".DetailActivity" android:exported="true" />
-
-        <!-- Edit Resep -->
         <activity android:name=".EditRecipeActivity" android:exported="true" />
-
     </application>
-
 </manifest>

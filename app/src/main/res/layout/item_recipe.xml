@@ -1,18 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:card_view="http://schemas.android.com/apk/res-auto"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_margin="8dp"
-    card_view:cardCornerRadius="12dp"
-    card_view:cardElevation="4dp"
-    android:background="@android:color/white">
+    app:cardCornerRadius="12dp"
+    app:cardElevation="4dp"
+    android:background="#FFF8F0">
 
+    <!-- isian di dalam CardView -->
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         android:padding="12dp"
+        android:background="@color/tan"
         android:gravity="center_vertical">
 
         <!-- Gambar Resep -->
@@ -21,9 +23,11 @@
             android:layout_width="90dp"
             android:layout_height="90dp"
             android:scaleType="centerCrop"
-            android:src="@drawable/ic_placeholder"
-            android:background="#E0E0E0"
-            android:layout_marginEnd="12dp" />
+            android:src="@drawable/chef"
+            android:background="#EAD6C6"
+            android:layout_marginEnd="12dp"
+            android:clipToOutline="true"
+            android:elevation="2dp" />
 
         <!-- Info Resep -->
         <LinearLayout
@@ -44,21 +48,11 @@
                     android:text="Judul Resep"
                     android:textSize="16sp"
                     android:textStyle="bold"
-                    android:textColor="#333"
+                    android:textColor="#4E342E"
                     android:maxLines="1"
                     android:ellipsize="end"
                     android:layout_alignParentStart="true" />
 
-                <ImageView
-                    android:id="@+id/btnFavorite"
-                    android:layout_width="20dp"
-                    android:layout_height="20dp"
-                    android:layout_alignParentEnd="true"
-                    android:src="@drawable/favorite"
-                    android:tint="#F44336"
-                    android:contentDescription="Favorite"
-                    android:padding="2dp"
-                    android:layout_marginEnd="4dp" />
             </RelativeLayout>
 
             <!-- Deskripsi -->
@@ -68,7 +62,7 @@
                 android:layout_height="wrap_content"
                 android:text="Deskripsi singkat..."
                 android:textSize="13sp"
-                android:textColor="#666"
+                android:textColor="#6D4C41"
                 android:maxLines="2"
                 android:ellipsize="end"
                 android:layout_marginTop="4dp" />
@@ -80,7 +74,7 @@
             android:layout_width="24dp"
             android:layout_height="24dp"
             android:src="@drawable/list"
-            android:tint="#444"
+            android:tint="#4E342E"
             android:layout_gravity="top"
             android:layout_marginStart="8dp"
             android:contentDescription="Menu" />

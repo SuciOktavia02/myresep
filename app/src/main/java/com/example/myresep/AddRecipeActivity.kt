@@ -1,91 +1,96 @@
 package com.example.myresep
 
-import android.app.Activity
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
 import android.widget.*
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
+import com.bumptech.glide.Glide
 import kotlinx.coroutines.launch
 
 class AddRecipeActivity : AppCompatActivity() {
 
-    private lateinit var editTitle: EditText
-    private lateinit var editDescription: EditText
-    private lateinit var editIngredients: EditText
-    private lateinit var editSteps: EditText
+    private lateinit var etTitle: EditText
+    private lateinit var etDescription: EditText
+    private lateinit var etIngredients: EditText
+    private lateinit var etSteps: EditText
+    private lateinit var imgPreview: ImageView
     private lateinit var btnSave: Button
-    private lateinit var imagePreview: ImageView
 
-    private var imageUri: String? = null
+    private var selectedImageUri: Uri? = null
     private lateinit var recipeDatabase: RecipeDatabase
 
-    private val IMAGE_PICK_CODE = 1001
+    private val pickImageLauncher = registerForActivityResult(
+        ActivityResultContracts.OpenDocument()
+    ) { uri ->
+        if (uri != null) {
+            contentResolver.takePersistableUriPermission(
+                uri,
+                Intent.FLAG_GRANT_READ_URI_PERMISSION
+            )
+            selectedImageUri = uri
+            Glide.with(this)
+                .load(uri)
+                .placeholder(R.drawable.kamera)
+                .into(imgPreview)
+        }
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_add_recipe) // pastikan file xml kamu namanya sama
+        setContentView(R.layout.activity_add_recipe)
 
-        // Inisialisasi komponen
-        editTitle = findViewById(R.id.etTitle)
-        editDescription = findViewById(R.id.etDescription)
-        editIngredients = findViewById(R.id.etIngredients)
-        editSteps = findViewById(R.id.etSteps)
+        etTitle = findViewById(R.id.etTitle)
+        etDescription = findViewById(R.id.etDescription)
+        etIngredients = findViewById(R.id.etIngredients)
+        etSteps = findViewById(R.id.etSteps)
+        imgPreview = findViewById(R.id.imgPreview)
         btnSave = findViewById(R.id.btnSave)
-        imagePreview = findViewById(R.id.imgPreview)
+
+        // ✅ Tambahkan tombol back
+        val btnBack = findViewById<ImageView>(R.id.btnBack)
+        btnBack.setOnClickListener {
+            finish()
+        }
 
         recipeDatabase = RecipeDatabase.getDatabase(this)
 
-        imagePreview.setOnClickListener {
-            pickImageFromGallery()
+        imgPreview.setOnClickListener {
+            pickImageLauncher.launch(arrayOf("image/*"))
         }
 
         btnSave.setOnClickListener {
-            val title = editTitle.text.toString()
-            val description = editDescription.text.toString()
-            val ingredients = editIngredients.text.toString()
-            val steps = editSteps.text.toString()
-
-            if (title.isEmpty() || description.isEmpty() || ingredients.isEmpty() || steps.isEmpty()) {
-                Toast.makeText(this, "Lengkapi semua data", Toast.LENGTH_SHORT).show()
-                return@setOnClickListener
-            }
-
-            val newRecipe = RecipeEntity(
-                title = title,
-                description = description,
-                ingredients = ingredients,
-                steps = steps,
-                imageUri = imageUri
-            )
-
-            lifecycleScope.launch {
-                recipeDatabase.recipeDao().insertRecipe(newRecipe)
-                runOnUiThread {
-                    Toast.makeText(this@AddRecipeActivity, "Resep ditambahkan", Toast.LENGTH_SHORT).show()
-                    finish()
-                }
-            }
+            saveRecipe()
         }
     }
 
-    private fun pickImageFromGallery() {
-        val intent = Intent(Intent.ACTION_PICK)
-        intent.type = "image/*"
-        startActivityForResult(intent, IMAGE_PICK_CODE)
-    }
+    private fun saveRecipe() {
+        val title = etTitle.text.toString().trim()
+        val description = etDescription.text.toString().trim()
+        val ingredients = etIngredients.text.toString().trim()
+        val steps = etSteps.text.toString().trim()
 
-    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        super.onActivityResult(requestCode, resultCode, data)
-        if (requestCode == IMAGE_PICK_CODE && resultCode == Activity.RESULT_OK) {
-            val selectedImage = data?.data
-            imageUri = selectedImage.toString()
-            imagePreview.setImageURI(selectedImage)
+        if (title.isEmpty() || ingredients.isEmpty() || steps.isEmpty()) {
+            Toast.makeText(this, "Lengkapi semua data!", Toast.LENGTH_SHORT).show()
+            return
         }
-        val btnBack: ImageView = findViewById(R.id.btnBack)
-        btnBack.setOnClickListener {
-            onBackPressed()
+
+        val recipe = RecipeEntity(
+            title = title,
+            description = description,
+            ingredients = ingredients,
+            steps = steps,
+            imageUri = selectedImageUri?.toString() ?: ""
+        )
+
+        lifecycleScope.launch {
+            recipeDatabase.recipeDao().insertRecipe(recipe)
+            runOnUiThread {
+                Toast.makeText(this@AddRecipeActivity, "Resep berhasil disimpan!", Toast.LENGTH_SHORT).show()
+                finish()
+            }
         }
     }
 }
